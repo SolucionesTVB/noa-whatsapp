@@ -1,0 +1,14 @@
+excel_path = Path("sugeseM_datos.xlsx")
+hacer_backup(excel_path)
+
+columnas_con_enlaces = ["Condiciones generales", "Solicitud de seguro", "Propuesta de seguro", "DERSA"]
+df = pd.read_excel(excel_path)
+enlaces_extraidos = extraer_hipervinculos(excel_path, columnas_con_enlaces)
+print("🧾 Enlaces extraídos:")
+for columna, lista in enlaces_extraidos.items():
+    print(f"{columna}: {len(lista)} elementos")
+    if lista:
+        print(f"  Primer valor: {lista[0]}")
+for col in columnas_con_enlaces:
+    if col in df.columns:
+        df[col] = enlaces_extraidos.get(col, ['—'] * len(df))

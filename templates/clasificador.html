@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Clasificador de Documentos</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 2rem; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        input[type="text"] { width: 60%; padding: 0.5rem; font-size: 1rem; }
+        button, .voz-btn { padding: 0.5rem 1rem; font-size: 1rem; margin-left: 1rem; cursor: pointer; }
+        .resultado { margin-top: 2rem; font-size: 1.2rem; color: #0077cc; }
+    </style>
+</head>
+<body>
+    <h1>🧠 Clasificador de Documentos de Seguro</h1>
+    <form method="get" action="/clasificar_documento">
+        <input type="text" id="frase" name="frase" placeholder="Ej: Póliza de incendio comercial" required>
+        <button type="submit">Clasificar</button>
+        <button type="button" class="voz-btn" onclick="activarVoz()">🎤 Hablar</button>
+    </form>
+
+   {% if resultado %}
+    <div class="resultado">
+        📄 Tipo de documento: <strong>{{ resultado }}</strong><br>
+        <audio controls autoplay>
+            <source src="/hablar?frase=Tipo de documento: {{ resultado }}" type="audio/mpeg">
+            Tu navegador no soporta audio.
+        </audio>
+    </div>
+{% endif %}
+
+
+    <script>
+        function activarVoz() {
+            const reconocimiento = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            reconocimiento.lang = "es-ES";
+            reconocimiento.interimResults = false;
+            reconocimiento.maxAlternatives = 1;
+
+            reconocimiento.onresult = function(event) {
+                const texto = event.results[0][0].transcript;
+                document.getElementById("frase").value = texto;
+            };
+
+            reconocimiento.onerror = function(event) {
+                alert("🎤 Error al reconocer voz: " + event.error);
+            };
+
+            reconocimiento.start();
+        }
+    </script>
+</body>
+</html>
+

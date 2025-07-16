@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Prueba de Voz</title>
+</head>
+<body>
+    <h1>🎤 Prueba de Reconocimiento de Voz</h1>
+    <button onclick="escuchar()">Activar Escucha</button>
+
+    <p id="resultado">Esperando...</p>
+
+    <script>
+        function hablar(texto) {
+            const msg = new SpeechSynthesisUtterance();
+            msg.text = texto;
+            msg.lang = 'es-CR';
+            speechSynthesis.speak(msg);
+        }
+
+        const reconocimiento = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        reconocimiento.lang = 'es-CR';
+        reconocimiento.continuous = false;
+        reconocimiento.interimResults = false;
+
+        function escuchar() {
+            reconocimiento.start();
+            document.getElementById("resultado").textContent = "🎙️ Escuchando...";
+            hablar("Te escucho, Tony");
+        }
+
+        reconocimiento.onresult = function(event) {
+            const texto = event.results[0][0].transcript.toLowerCase();
+            console.log("🎧 Escuchado:", texto);
+            document.getElementById("resultado").textContent = `Escuché: "${texto}"`;
+            hablar(`Escuché: ${texto}`);
+        };
+
+        reconocimiento.onerror = function(event) {
+            console.error("❌ Error:", event.error);
+            document.getElementById("resultado").textContent = `Error: ${event.error}`;
+            hablar("Hubo un error al escuchar");
+        };
+    </script>
+</body>
+</html>

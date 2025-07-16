@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inicio | Noa Asistente</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f4f8; text-align: center; padding: 3rem; }
+        h1 { color: #333; margin-bottom: 2rem; }
+        .botones { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; }
+        a.boton {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #0077cc;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s;
+        }
+        a.boton:hover {
+            background-color: #005fa3;
+        }
+    </style>
+</head>
+<body>
+    <h1>👋 Bienvenido a Noa, tu asistente inteligente</h1>
+    <audio id="noaAudio">
+    <source src="{{ url_for('static', filename='bienvenida.mp3') }}" type="audio/mpeg">
+</audio>
+<script>
+    window.addEventListener("DOMContentLoaded", () => {
+        const audio = document.getElementById("noaAudio");
+        audio.play().catch(error => {
+            console.log("Autoplay bloqueado por el navegador:", error);
+        });
+    });
+</script>
+
+    <div class="botones">
+        <a class="boton" href="/clasificar_documento">🧠 Clasificador de Documentos</a>
+        <a class="boton" href="/tabla">📊 Tabla de Documentos</a>
+        <a class="boton" href="/intencion?frase=ver pólizas de INS">🎯 Detección de Intención</a>
+        <a class="boton" href="/test">🧪 Ruta de Prueba</a>
+    </div>
+</body>
+</html>
+

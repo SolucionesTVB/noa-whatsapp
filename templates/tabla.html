@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>📄 Tabla de Documentos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .filtros {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #eef;
+            border-radius: 8px;
+        }
+
+        .boton-enlace {
+            padding: 6px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .boton-enlace.pdf {
+            background-color: #d9534f;
+        }
+
+        .boton-enlace.word {
+            background-color: #337ab7;
+        }
+
+        .boton-enlace.excel {
+            background-color: #5cb85c;
+        }
+
+        .boton-enlace.otro {
+            background-color: #6c757d;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #eee;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .fecha {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📄 Tabla de Documentos</h1>
+
+    <div class="fecha">
+        Última actualización: {{ tipo if tipo else "completa" }}
+    </div>
+
+    <div class="filtros">
+        <strong>Filtros disponibles:</strong>
+        <ul>
+            {% for columna, opciones in filtros.items() %}
+                <li><strong>{{ columna }}:</strong> {{ opciones | join(', ') }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="tabla">
+        {{ tabla | safe }}
+    </div>
+</body>
+</html>
+<div id="visor" style="display:none; margin-top:20px;">
+    <h3>📄 Vista previa del documento</h3>
+    <iframe id="iframeDocumento" src="" width="100%" height="600px" style="border:1px solid #ccc;"></iframe>
+</div>
+
+<script>
+    function mostrarDocumento(url) {
+        const visor = document.getElementById("visor");
+        const iframe = document.getElementById("iframeDocumento");
+        iframe.src = url;
+        visor.style.display = "block";
+        window.scrollTo({ top: visor.offsetTop, behavior: 'smooth' });
+    }
+</script>
+
+

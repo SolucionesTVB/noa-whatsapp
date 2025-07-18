@@ -46,4 +46,4 @@ Un dashboard inteligente que transforma un Excel de SUGESE en una tabla web inte
 ## ✨ Autores
 
 - 🧠 Diseño, conceptualización y pruebas: **Tony**
-- 🤖 Apoyo técnico y asistencia creativa: **Copilot**
+- 🤖 Apoyo técnico y asistencia creativa: **Copilot*

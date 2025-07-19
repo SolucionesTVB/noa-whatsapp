@@ -51,5 +51,4 @@ def whatsapp_noa():
         print("[ERROR] Fallo inesperado:")
         traceback.print_exc()
         return str(MessageResponse("Lo siento, hubo un error procesando tu mensaje 😢"))
-
         return str(fallback)

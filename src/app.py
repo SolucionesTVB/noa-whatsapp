@@ -1,6 +1,7 @@
 from flask import Flask, request
 from twilio.twiml.messaging_response import MessagingResponse
 from dotenv import load_dotenv
+import traceback
 import os
 import openai
 import traceback  # 💡 CORREGIDO

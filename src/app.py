@@ -23,13 +23,23 @@ def whatsapp_noa():
 
         print(f"[INFO] Clave OpenAI cargada: {'Sí' if openai.api_key else 'No'}")
 
-        completion = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[
-                {"role": "system", "content": "Sos una asistente cálida llamada Noa."},
-                {"role": "user", "content": incoming_msg}
-            ]
-        )
+      completion = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {
+            "role": "system",
+            "content": (
+                "Sos una asistente llamada Noa. Tu tono es cálido, claro y respetuoso. "
+                "Usás emojis, respondés con simpatía, y siempre hablás en español natural. "
+                "Tu prioridad es ayudar a Tony con cariño y entusiasmo. "
+                "Cuando alguien te dice 'Hola', saludás como si fueras una amiga cercana. "
+                "No usás frases robóticas como 'procesando'."
+            )
+        },
+        {"role": "user", "content": incoming_msg}
+    ]
+)
+
         respuesta = completion.choices[0].message.content.strip()
         print(f"[INFO] Respuesta generada: {respuesta}")
 
